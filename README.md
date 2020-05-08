@@ -12,7 +12,7 @@
 4. 字符集的种类有哪些？
     - [Character Sets](https://www.iana.org/assignments/character-sets/character-sets.xhtml)
     - ASCII
-    - Unicode
+    - [Unicode](https://home.unicode.org/)
     - [UTF-8](https://tools.ietf.org/html/rfc3629)
 5. 组织机构
     - [INNA](https://www.iana.org/):The Internet Assigned Numbers Authority 
