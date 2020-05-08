@@ -11,7 +11,7 @@
 3.  HTML文档中的元素默认样式在哪里查看，默认样式是浏览器决定的吗？  
 4. 字符集的种类有哪些？
     - [Character Sets](https://www.iana.org/assignments/character-sets/character-sets.xhtml)
-    - ASCII
+    - [ASCII](https://www.ascii-code.com/)
     - [Unicode](https://home.unicode.org/)
     - [UTF-8](https://tools.ietf.org/html/rfc3629)
 5. 组织机构
