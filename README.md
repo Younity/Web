@@ -14,3 +14,5 @@
     - ASCII：[ASCII table](https://www.ascii-code.com/)
     - Unicode：[Official website](https://home.unicode.org/)、[Unicode Technical Site](https://unicode.org/main.html)
     - [UTF-8](https://tools.ietf.org/html/rfc3629)
+5. RFC
+    - [RFC2119](https://www.rfc-editor.org/rfc/rfc2119.txt): Key words for use in RFCs to Indicate Requirement Levels.
