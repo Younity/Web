@@ -1,0 +1,187 @@
+<!--
+    事件不是 JavaScript 的核心，它们是在浏览器 Web APIs 中定义的。
+    JavaScript 在不同的环境下使用不同的事件模型。
+    概念：
+        1. 使用 Web 事件的方法
+            1) Inline event handlers (维护麻烦，通过设置 HTML 事件属性使用)
+            2) Event handler properties (功能选项不够强大，但兼容性好，通过 JS 使用)
+            3) addEventListener() and removeEventListener() (DOM level 2 Event, 更强大，只支持 IE9 及以后的版本, 兼容性可能不够好，但应该尽可能的使用, 通过 JS 使用)
+
+        2. 事件对象 event、evt、e
+            1） 事件对象可以作为事件处理函数的参数，表示当前事件，它的属性 e.target 指代触发该事件的元素。
+        3. 事件冒泡及捕获
+            1) 冒泡和捕获是处理事件流的两种机制。
+            2) 事件流指的是事件的处理顺序。
+            3) 这两种机制描述了当两个大小相同、位置重叠的元素同时触发鼠标点击事件，那个事件监听器会先被处理。
+            4) 使用stopPropagation() 停止传播；
+            5) 使用 preventDefault() 阻止默认行为，如用在用户没有填完必要的表单时阻止提交表单。
+        4. 事件委托
+            大量子元素需要绑定同一个事件的高效解决办法。
+            将事件绑定到父元素上，通过冒泡机制，使用 event.target.nodeName 属性或 e.target.matches(selectors) 方法获取被点击子元素，然后进行操作。
+-->
+<!doctype html>
+<html>
+
+<head>
+    <title>Event</title>
+    <style>
+        /* 事件对象 */
+        .eventObject {
+            width: 500px;
+            height: 300px;
+            background-color: aquamarine;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .smalldiv {
+            width: 125px;
+            height: 75px;
+            color: #fff;
+            line-height: 75px;
+            text-align: center;
+            background-color: seagreen;
+        }
+
+        .eventObject span {
+            background-color: sienna;
+        }
+
+        /* 事件冒泡机制 */
+        .hidden {
+            visibility: hidden;
+        }
+
+        .showing {
+            visibility: visible;
+        }
+
+        div video {
+            display: block;
+            width: 400px;
+            margin: 40px auto;
+        }
+
+        .eventBuble {
+            width: 480px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #eee;
+            background-image: linear-gradient(45deg, rgba(141, 245, 21, 0.8), rgba(194, 11, 81, 0.6));
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 事件处理机制 -->
+    <button class="button">Change bgColor</button>
+    <button class="button2">Mouse over</button>
+    <hr>
+    <!-- 事件对象 -->
+    <div class="eventObject"><span class="smalldiv">Have Fun</span></div>
+    <hr />
+
+    <!-- 事件冒泡 -->
+    <div class="eventBuble">
+        <p>请使用 stopPropagation() 阻止事件冒泡</p>
+        <button class="bbtn">Display video</button>
+        <div id="ddiv" class="hidden">
+            <video>
+                <source src='minions.mp4' type="video/mp4">
+                <p>Your brower doesn't support H5 video.</p>
+            </video>
+        </div>
+    </div>
+    <hr>
+
+
+    <!-- 事件委托 -->
+    <div class="eventDelegation">
+        <p>事件委托实例(点击列表项)</p>
+        <ul id="parent-list">
+            <li id="post-1">Item 1</li>
+            <li id="post-2">Item 2</li>
+            <li id="post-3">Item 3</li>
+            <li id="post-4">Item 4</li>
+            <li id="post-5">Item 5</li>
+            <li id="post-6">Item 6</li>
+            <li><a class="classA">anchor</a></li>
+        </ul>
+        <p id="eventDelegation"></p>
+    </div>
+
+    <script>
+        // 使用 Web 事件的方法:
+            // 1 事件处理器
+        const btn = document.querySelector('.button');
+
+        btn.onclick = function () {
+            const rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+            document.body.style.backgroundColor = rndCol;
+        }
+
+            // 2 事件监听器
+        const btn2 = document.querySelector('.button2');
+
+        function bagChange() {
+            const rndCol2 = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+            document.body.style.backgroundColor = rndCol2;
+        }
+
+        btn2.addEventListener('mouseover', bagChange);
+
+        // 事件对象
+        for (let i = 1; i < 16; i++) {
+            const myDiv = document.createElement('div');
+            myDiv.setAttribute("class", 'smalldiv');
+            document.getElementsByClassName('eventObject')[0].appendChild(myDiv);
+        }
+
+        function random(number) {
+            return Math.floor(Math.random() * number);
+        }
+
+        function bgChange() {
+            var rndCol = 'rgb(' + random(255) + ',' + random(255) + ',' + random(255) + ')';
+            return rndCol;
+        }
+
+        const divcontainer = document.getElementsByClassName('eventObject')[0];
+        const divs = divcontainer.querySelectorAll('div');
+
+        for (let i = 0; i < divs.length; i++) {
+            divs[i].onmouseover = function (e) {
+                e.target.style.backgroundColor = bgChange();
+            }
+        }
+
+        // 事件冒泡，停止传播
+        const bbtn = document.querySelector('.bbtn');
+        const ddiv = document.querySelector("#ddiv");
+        const vvideo = document.querySelector("video");
+
+        bbtn.onclick = function () {
+            ddiv.setAttribute('class', 'showing');
+        }
+        ddiv.onclick = function () {
+            ddiv.setAttribute('class', 'hidden');
+        }
+        vvideo.onclick = function (e) {
+            //e.stopPropagation();
+            vvideo.play();
+        }
+
+        // 事件委托
+        document.getElementById("parent-list").addEventListener('click', function (e) {
+            if (e.target && e.target.nodeName == "LI") {
+                document.getElementById("eventDelegation").innerHTML = 'List Item' + e.target.id.replace("post-", " ") + ' was clicked!';
+            }
+            if (e.target && e.target.matches("a.classA")) {
+                document.getElementById("eventDelegation").innerHTML = "Anchor element clicked!";
+            }
+        }
+        );
+    </script>
+</body>
+
+</html>
