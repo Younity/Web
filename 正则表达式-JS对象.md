@@ -1,6 +1,20 @@
-# RegExp 对象
 
-如何匹配 括号？
+
+
+常见问题
+========
+1. 如何匹配 括号？
+
+使用反斜杠 \ 转义。
+
+2. 如何命名捕获组？
+
+在括号的开始使用 `?<name>`，例如查找 "year-month-day" 格式的日期：
+
+`/(?<year>[0-9]{4})-(?<month>[0-9]{2})-(?<day>[0-9]{2})/` 
+
+RegExp 对象
+===========
 
  静态属性：
 - RegExp.lastIndex
@@ -34,13 +48,86 @@
 - RegExp.prototype.test()
 - RegExp.prototype.toString()
 
-# String 对象相关方法
+String 对象相关方法
+===================
+
+1. String.prototype.match(regexp)
+
+**语法：**
+
+	`str.match(regexp)`
+
+**传入参数：**
+  
+一个正则表达式对象，如果传入一个非正则表达式对象，则会隐式地使用 new RegExp(obj) 将其转换为正则表达式对象。
+  
+**返回值：**
+
+1. 如果不匹配返回 null。
+
+```JS
+'Lorem ipsum dolor sit amet.'.match(/win/);
+// null
+```
+
+2. 若正则表达式使用 g 标志，返回一个数组，包含所有匹配结果。
+
+```JS
+'Lorem ipsum dolor sit amet Etiam.'.match(/i./g);
+//  ["ip", "it", "ia"]
+```
+
+3. 若正则表达式未使用 g 标志，返回一个数组，包含以下内容：
+	- 0：匹配到的字符串。
+	- 1~n: 第 1 到第 n 个捕获组，没有捕获组时无此索引。
+	- index: 匹配字符串的第一个字符在原字符串中的索引。
+	- input: 被搜索的原始字符串 str。
+	- groups: 包含命名捕获组的对象，没有则为 undefined。
+
+例如：
+
+```JS
+'Lorem ipsum dolor sit amet, consectetur'.match(/i(t )a(me)/);
+/* 
+["it ame", 
+ "t ",
+ "me",
+ index: 19, 
+ input: "Lorem ipsum dolor sit amet, consectetur", 
+ groups: undefined]
+*/
+```
+
+再看一个有命名捕获组的例子：
+
+```JS
+'When the COVID-19 comes, it\'s 2019-09'.match(/(?<year>[0-9]{4})-(?<month>[0-9]{2})/);
+/*
+["2019-09",
+ "2019", 
+ "09", 
+ index: 30, 
+ input: "When the COVID-19 comes, it's 2019-09",
+ groups: {year: "2019", month: "09"}]
+*/
+```
+
+当命名捕获组没有匹配到字符时，捕获组为 undefined，groups 中的值也为undefined。
+
+```JS
+'201-09'.match(/(?<year>[0-9]{4})?/)；
+/*
+["", 
+undefined, 
+index: 0, 
+input: "201-09", 
+groups: {year: undefined}]
+*/
+```
 
 - str.search(regexp)
   - 匹配成功返回字符串首次匹配项的索引，否则返回 -1
-- str.match(regexp)
-  - 若使用 g 标志，返回匹配的所有结果，但不返回捕获组
-  - 若未使用 g 标志，与 RegExp.exec() 返回值相同
+
 - str.matchAll(regexp)
   - regexp 必须设置 g 标志，否则将抛出异常；
   - 返回一个迭代器, 可使用 for of 或 Array.from() 对其进行迭代
@@ -49,3 +136,12 @@
   - 不会改变原始字符串
 - str.split(regex)
   - 返回一个数组，包含由 regex 模式匹配的字符分割的子字符串
+  
+  
+  
+  
+  
+  
+  
+  
+  

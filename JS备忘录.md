@@ -172,7 +172,7 @@
     | Array.prototype.reverse()                             | 颠倒数组中元素的顺序     |
     | Array.prototype.pop()                                 |
     | Array.prototype.push()                                |
-    | Array.prototype.shift()                               |
+    | Array.prototype.shift()                               | 数组为空时返回 undefined |
     | Array.prototype.unshift(item1[, item2, ...])          |
     | Array.prototype.splice(start, delcount[, item1, ...]) | 在指定位置删除或添加元素 |
 
