@@ -1,0 +1,40 @@
+{
+    "name": "Content Looker",
+    "version": "0.1.0",
+    "description": "用来方便查看 ES2015 标准的目录。新增了XMLHttpRequest对象标准",
+    "permissions": [
+        "activeTab",
+        "declarativeContent",
+        "storage"
+    ],
+    "background": {
+        "scripts": [
+            "background.js"
+        ],
+        "persistent": false
+    },
+    "options_page": "options.html",
+    "page_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "images/get_started16.png",
+            "32": "images/get_started32.png",
+            "48": "images/get_started48.png",
+            "128": "images/get_started128.png"
+        }
+    },
+    "content_scripts": [
+        {
+            "matches": ["http://www.ecma-international.org/*", "https://xhr.spec.whatwg.org/*"],
+            "css": ["find-content.css"],
+            "js": ["find-content.js"]
+        }
+    ],
+    "icons": {
+        "16": "images/get_started16.png",
+        "32": "images/get_started32.png",
+        "48": "images/get_started48.png",
+        "128": "images/get_started128.png"
+    },
+    "manifest_version": 2
+}

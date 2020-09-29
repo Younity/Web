@@ -2,6 +2,35 @@
 - [CSS 属性](#css-属性)
 - [CSS3](#css3)
 
+## CSS 命名规范
+
+1. BEM 命名规范
+
+BEM ：Block Element Modifiers
+区块 元素 修饰符
+
+使用符号：短横，双连字符，双短横
+
+B__E--M
+
+例子：
+.stick-man 表示火柴人这个块（B）
+.stick-man--blue 表示蓝色火柴人（BM）
+.stick-man__head 表示火柴人的头部元素（BE）
+.stick-man__head--small 表示小个火柴人 （BEM）
+
+## CSS 属性顺序规范
+
+先写结构型属性：
+display
+position, left, top, right etc.
+overflow, float, clear etc.
+margin, padding
+
+后写表现型属性：
+background, border etc.
+font, text
+
 ## CSS 选择器
 - 基本选择器
   - .class

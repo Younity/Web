@@ -78,22 +78,28 @@
     <button class="button2">Mouse over</button>
     <hr>
     <!-- 事件对象 -->
-    <div class="eventObject"><span class="smalldiv">Have Fun</span></div>
-    <hr />
+    <details>
+        <summary>事件对象实例：小游戏</summary>
+        <div class="eventObject"><span class="smalldiv">Have Fun</span></div>
+        <hr />
+    </details>
 
     <!-- 事件冒泡 -->
-    <div class="eventBuble">
-        <p>请使用 stopPropagation() 阻止事件冒泡</p>
-        <button class="bbtn">Display video</button>
-        <div id="ddiv" class="hidden">
-            <video>
-                <source src='minions.mp4' type="video/mp4">
-                <p>Your brower doesn't support H5 video.</p>
-            </video>
+    <details>
+        <summary>事件冒泡实例：短视频</summary>
+        <div class="eventBuble">
+            <p>请使用 stopPropagation() 阻止事件冒泡</p>
+            <button class="bbtn">Display video</button>
+            <div id="ddiv" class="hidden">
+                <video>
+                    <source src='minions.mp4' type="video/mp4">
+                    <p>Your brower doesn't support H5 video.</p>
+                </video>
+            </div>
         </div>
-    </div>
-    <hr>
+    </details>
 
+    <hr>
 
     <!-- 事件委托 -->
     <div class="eventDelegation">
@@ -173,14 +179,22 @@
 
         // 事件委托
         document.getElementById("parent-list").addEventListener('click', function (e) {
+            // console.log("e.target: ", e.target.nodeName);
+            // console.log("e.currentTarget:", e.currentTarget.nodeName)
             if (e.target && e.target.nodeName == "LI") {
                 document.getElementById("eventDelegation").innerHTML = 'List Item' + e.target.id.replace("post-", " ") + ' was clicked!';
             }
             if (e.target && e.target.matches("a.classA")) {
                 document.getElementById("eventDelegation").innerHTML = "Anchor element clicked!";
             }
-        }
-        );
+        });
+
+        document.addEventListener('click', function(e){
+            console.log(e.timeStamp);
+            console.log("e.target: ", e.target.nodeName);
+            console.log("e.currentTarget:", e.currentTarget.nodeName)
+        });
+
     </script>
 </body>
 
