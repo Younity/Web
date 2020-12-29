@@ -1,3 +1,11 @@
+## git常规操作
+
+1. 配置信息
+
+   - git config --global --list  查看当前用户配置信息
+   - git config --global user.name "username"  设置提交用户的用户名
+   - git config --global user.email "user@email.com"  设置提交用户（commit）的email
+
 ## git常用命令
 
 1. 提交修改
@@ -17,22 +25,24 @@
 
    - git push origin HEAD --force	推送到远程
 
-   回滚之后的后悔药
+   回滚之后的后悔药--撤销回滚
 
    - git reflog	查看回滚的操作记录
 
    - git reset --hard commit_id  回滚
 
 4. 远程仓库
+
    - git remote -v	查看远程仓库设置信息
 
    - git remote add [shortname] [url]  添加一个新的远程仓库
 
 5. git 配置
+
    - git config --system --list	查看系统配置
    - git config --local --list  查看当前仓库配置
    - git config --global --list  查看当前用户配置
-   - git config -- global user.name "username"  设置提交用户的用户名
+   - git config --global user.name "username"  设置提交用户的用户名
    - git config --global user.email "user@email.com"  设置提交用户（commit）的email
 
 6. git 分支
